@@ -114,8 +114,31 @@ ylabel('Force (kPa)')
 
 
 
+%% Summary plots
 
+if strcmp(type,'pCa')
+    plot(yM.Fpre, yM.SRS./yM_ref.SRS,'linewidth',2); hold on
+    plot(yD.Fpre, yD.SRS./yD_ref.SRS,':','color',[.5 .5 .5],'linewidth',2,'marker','o');
+    xlabel('Pre-stretch force (kPa)')
+    xlim([0 max(yD.Fpre)])
 
+    legend(model, 'data (n=3)', 'location','best')
+    legend boxoff
+    ylim([0 2.5])
+
+elseif strcmp(type,'AMP')
+    plot(ModData.AMPs(:,1), yM.SRS./yM_ref.SRS,'linewidth',2); hold on
+    plot(ExpData.AMPs(:,1), yD.SRS./yD_ref.SRS,':','color',[.5 .5 .5],'linewidth',2,'marker','o');
+    xlabel('Amplitude (L_0)')
+    ylim([0 1.5])
+
+elseif strcmp(type,'ISI')
+    semilogx(ModData.ISI, yM.SRS./yM_ref.SRS,'linewidth',2); hold on
+    semilogx(ExpData.ISI, yD.SRS./yD_ref.SRS,':','color',[.5 .5 .5],'linewidth',2,'marker','o');
+    xlabel('Inter-stretch interval (s)')
+    xlim([min(Data.ISIs) max(Data.ISIs)])
+    ylim([0 1.5])
+end
 
 
 
